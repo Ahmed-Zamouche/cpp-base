@@ -1,0 +1,24 @@
+public:
+  {{name}} ();
+  {{name}} (const {{name}} &);
+  {{name}} ({{name}} &&) noexcept;
+  {{name}} &operator=(const {{name}} &);
+  {{name}} &operator=({{name}} &&) noexcept;
+{{  #properties}}
+
+  void set{{property.name}}(const {{property.scope}}{{property.type}} &);
+  void set{{property.name}}({{property.type}} &&);
+
+  {{property.scope}}{{property.type}} &get{{property.name}}();
+  const {{property.type}} &get{{property.name}}() const;
+  bool get{{property.name}}IsSet() const;
+
+{{  /properties}}
+  virtual ~{{name}} ();
+
+private:
+{{  #properties}}
+  {{property.scope}}{{property.type}} m{{property.name}}{};
+  bool m{{property.name}}IsSet{false};
+{{  /properties}}
+int mUnused{0};

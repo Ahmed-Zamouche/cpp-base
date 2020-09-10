@@ -1,0 +1,23 @@
+std::string {{enum.scope}}toString(const {{enum.scope}}{{enum.name}} &value) {
+  switch (value) {
+{{  #enum.values}}
+  case {{enum.scope}}{{enum.name}}::{{value.name}}:
+    return "{{value.name}}";
+{{  /enum.values}}
+  default:
+    ASSERT(false, "enum value out of range");
+    break;
+  }
+  return "unknown enum value";
+}
+
+{{enum.scope}}{{enum.name}} {{enum.scope}}fromString(const std::string &str) {
+  if (false) {
+    ;
+  }{{  #enum.values}} else if (str == "{{value.name}}") {
+    return {{enum.scope}}{{enum.name}}::{{value.name}};
+  }{{  /enum.values}} else {
+    ASSERT(false, "enum string out of range");
+  }
+  return {{enum.scope}}{{enum.name}}();
+}

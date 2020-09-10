@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package protocol;
+
+import "request.proto";
+import "response.proto";
+
+service MyService {
+  rpc action (Request) returns (Response){}
+}

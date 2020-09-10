@@ -1,0 +1,9 @@
+enum class {{enum.name}} {
+{{  #enum.values}}
+  {{value.name}} = {{value.number}},
+{{  /enum.values}}
+};
+
+std::string toString(const {{enum.name}} &value);
+
+{{enum.name}} fromString(const std::string &str);

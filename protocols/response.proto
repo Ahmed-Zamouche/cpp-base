@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package protocol;
+
+message SubResponse {
+  int32 id = 1;
+  string name = 2;
+  int32 value = 3;
+}
+
+message Response {
+  int32 id = 1;
+  string name = 2;
+  int32 value = 3;
+  SubResponse subResponse = 4;
+}

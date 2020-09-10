@@ -1,0 +1,48 @@
+
+{{name}}::{{name}}() = default;
+{{name}}::~{{name}}() = default;
+{{name}}::{{name}}(const {{name}} &o) = default;
+{{name}}::{{name}}({{name}} &&o) noexcept :
+{{  #properties}}
+    m{{property.name}} (std::move(o.m{{property.name}})),
+    m{{property.name}}IsSet(o.m{{property.name}}IsSet),
+{{  /properties}}
+    mUnused(o.mUnused)
+{}
+
+{{name}} &{{name}}::operator=(const {{name}} &o) {
+  if (this != &o) {
+{{  #properties}}
+    m{{property.name}} = o.m{{property.name}};
+{{  /properties}}
+  }
+  return *this;
+}
+{{name}} &{{name}}::operator=({{name}} &&o) noexcept {
+  if (this != &o) {
+{{  #properties}}
+    m{{property.name}} = o.m{{property.name}};
+{{  /properties}}
+  }
+  return *this;
+}
+
+{{  #properties}}
+void {{name}}::set{{property.name}} (const {{property.scope}}{{property.type}}  &value) {
+  m{{property.name}}IsSet = true;
+  m{{property.name}} = value;
+}
+void {{name}}::set{{property.name}} ({{property.scope}}{{property.type}}  &&value) {
+  m{{property.name}}IsSet = true;
+  m{{property.name}} = value;
+}
+{{property.scope}}{{property.type}}  &{{name}}::get{{property.name}} () {
+  ASSERT(m{{property.name}}IsSet);
+  return m{{property.name}};
+}
+const {{property.scope}}{{property.type}}  &{{name}}::get{{property.name}} () const {
+  ASSERT(m{{property.name}}IsSet);
+  return m{{property.name}};
+}
+bool {{name}}::get{{property.name}}IsSet() const { return m{{property.name}}IsSet; }
+{{  /properties}}
